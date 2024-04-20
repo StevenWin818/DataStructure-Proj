@@ -1,30 +1,30 @@
 #include <bits/stdc++.h>
-// å®šä¹‰é“¾è¡¨èŠ‚ç‚¹
+// ¶¨ÒåÁ´±í½Úµã
 typedef struct Node
 {
-    int id;             // å­¦å·
-    char name[50];      // å§“å
-    char gender[10];    // æ€§åˆ«
-    double temperature; // ä½“æ¸©
-    int hour;           // è¿›å…¥å›¾ä¹¦é¦†çš„æ—¶é—´ï¼ˆæ—¶ï¼‰
-    int minute;         // è¿›å…¥å›¾ä¹¦é¦†çš„æ—¶é—´ï¼ˆåˆ†ï¼‰
-    struct Node *next;  // æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„æŒ‡é’ˆ
+    int id;             // Ñ§ºÅ
+    char name[50];      // ĞÕÃû
+    char gender[10];    // ĞÔ±ğ
+    double temperature; // ÌåÎÂ
+    int hour;           // ½øÈëÍ¼Êé¹İµÄÊ±¼ä£¨Ê±£©
+    int minute;         // ½øÈëÍ¼Êé¹İµÄÊ±¼ä£¨·Ö£©
+    struct Node *next;  // Ö¸ÏòÏÂÒ»¸ö½ÚµãµÄÖ¸Õë
 } Node;
 
-// å®šä¹‰é“¾è¡¨
+// ¶¨ÒåÁ´±í
 typedef struct LinkedList
 {
-    Node *head; // é“¾è¡¨çš„å¤´èŠ‚ç‚¹
-    int size;   // é“¾è¡¨çš„å¤§å°ï¼ˆèŠ‚ç‚¹æ•°ï¼‰
+    Node *head; // Á´±íµÄÍ·½Úµã
+    int size;   // Á´±íµÄ´óĞ¡£¨½ÚµãÊı£©
 } LinkedList;
 
-// åˆå§‹åŒ–é“¾è¡¨
+// ³õÊ¼»¯Á´±í
 LinkedList *init_list()
 {
     LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
     if (list == NULL)
     {
-        printf("å†…å­˜åˆ†é…å¤±è´¥ï¼Œæ— æ³•åˆå§‹åŒ–é“¾è¡¨ã€‚\n");
+        printf("ÄÚ´æ·ÖÅäÊ§°Ü£¬ÎŞ·¨³õÊ¼»¯Á´±í¡£\n");
         return NULL;
     }
     list->head = NULL;
@@ -32,58 +32,310 @@ LinkedList *init_list()
     return list;
 }
 
-// æ·»åŠ å­¦ç”Ÿä¿¡æ¯
+// Ìí¼ÓÑ§ÉúĞÅÏ¢
 void add(LinkedList *list)
 {
-    // TODO: ä»é”®ç›˜è¾“å…¥å­¦ç”Ÿä¿¡æ¯ï¼Œåˆ›å»ºæ–°çš„èŠ‚ç‚¹ï¼Œæ·»åŠ åˆ°é“¾è¡¨ä¸­
+    Node *new_node = (Node *)malloc(sizeof(Node));
+    if (new_node == NULL)
+    {
+        printf("ÄÚ´æ·ÖÅäÊ§°Ü¡£\n");
+        return;
+    }
+    printf("ÇëÊäÈëÑ§ºÅ£º");
+    scanf("%d", &(new_node->id));
+    printf("ÇëÊäÈëĞÕÃû£º");
+    scanf("%s", new_node->name);
+    printf("ÇëÊäÈëĞÔ±ğ£º");
+    scanf("%s", new_node->gender);
+    do
+    {
+        printf("ÇëÊäÈëÌåÎÂ£º");
+        scanf("%lf", &(new_node->temperature));
+        if (new_node->temperature < 35 || new_node->temperature > 42)
+            printf("ÌåÎÂÊäÈëÒì³££¬ÇëÊäÈë35-42Ö®¼äµÄÌåÎÂ¡£\n");
+    } while (new_node->temperature < 35 || new_node->temperature > 42);
+    // printf("ÇëÊäÈë½øÈëÍ¼Êé¹İµÄÊ±¼ä£¨Ê±£©£º");
+    // scanf("%d", &(new_node->hour));
+    // if (new_node->hour < 0 || new_node->hour > 24)
+    // {
+    //     printf("Ê±¼ä£¨Ê±£©ÊäÈëÒì³££¬ÇëÊäÈë0-24Ö®¼äµÄÊ±¼ä¡£\n");
+    //     free(new_node);
+    //     return;
+    // }
+    do{
+        printf("ÇëÊäÈë½øÈëÍ¼Êé¹İµÄÊ±¼ä£¨Ê±£©£º");
+        scanf("%d", &(new_node->hour));
+        if (new_node->hour < 0 || new_node->hour > 24)
+            printf("Ê±¼ä£¨Ê±£©ÊäÈëÒì³££¬ÇëÊäÈë0-24Ö®¼äµÄÊ±¼ä¡£\n");
+    } while(new_node->hour < 0 || new_node->hour > 24);
+
+    do
+    {
+        printf("ÇëÊäÈë½øÈëÍ¼Êé¹İµÄÊ±¼ä£¨·Ö£©£º");
+        scanf("%d", &(new_node->minute));
+        if (new_node->minute < 0 || new_node->minute > 60)
+            printf("Ê±¼ä£¨·Ö£©ÊäÈëÒì³££¬ÇëÊäÈë0-60Ö®¼äµÄÊ±¼ä¡£\n");
+    } while (new_node->minute < 0 || new_node->minute > 60);
+    new_node->next = list->head;
+    list->head = new_node;
+    list->size++;
 }
 
-// æŒ‰ä½“æ¸©æ’åº
+// ·Ö¸îÁ´±íÎªÁ½°ë
+Node *split(Node *head)
+{
+    Node *slow = head;
+    Node *fast = head->next;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    Node *temp = slow->next;
+    slow->next = NULL;
+    return temp;
+}
+
+// ºÏ²¢Á½¸öÓĞĞòÁ´±í
+Node *merge(Node *l1, Node *l2)
+{
+    Node dummy;
+    Node *tail = &dummy;
+    while (l1 && l2)
+    {
+        if (l1->temperature > l2->temperature)
+        {
+            tail->next = l1;
+            l1 = l1->next;
+        }
+        else
+        {
+            tail->next = l2;
+            l2 = l2->next;
+        }
+        tail = tail->next;
+    }
+    tail->next = l1 ? l1 : l2;
+    return dummy.next;
+}
+
+// ¹é²¢ÅÅĞòº¯Êı
+Node *mergeSort(Node *head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node *mid = split(head);
+    return merge(mergeSort(head), mergeSort(mid));
+}
+
+// ¶ÔÁ´±í½øĞĞ¹é²¢ÅÅĞò
 void sort(LinkedList *list)
 {
-    // TODO: ä½¿ç”¨é€‚å½“çš„æ’åºç®—æ³•ï¼ˆå¦‚å†’æ³¡æ’åºã€å¿«é€Ÿæ’åºç­‰ï¼‰å¯¹é“¾è¡¨è¿›è¡Œæ’åº
+    list->head = mergeSort(list->head);
 }
 
-// æŸ¥æ‰¾å­¦ç”Ÿ
+// ²éÕÒÑ§Éú
 Node *search(LinkedList *list, int id)
 {
-    // TODO: ä½¿ç”¨äºŒåˆ†æŸ¥æ‰¾æ³•æŒ‰ç…§å­¦å·è¿›è¡ŒæŸ¥æ‰¾
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        if (current->id == id)
+        {
+            printf("Ñ§ºÅ£º%d\n", current->id);
+            printf("ĞÕÃû£º%s\n", current->name);
+            printf("ĞÔ±ğ£º%s\n", current->gender);
+            printf("ÌåÎÂ£º%.1f\n", current->temperature);
+            printf("½øÈëÍ¼Êé¹İµÄÊ±¼ä£º%02d:%02d\n", current->hour, current->minute);
+            printf("--------------------\n");
+            return current;
+        }
+        current = current->next;
+    }
+    printf("Î´ÕÒµ½Ñ§ºÅÎª%dµÄÑ§Éú¡£\n", id);
+    return NULL;
 }
 
-// ç»Ÿè®¡ä½“æ¸©é«˜äº37åº¦çš„å­¦ç”Ÿäººæ•°
-void statistics(LinkedList *list)
-{
-    // TODO: éå†é“¾è¡¨ï¼Œç»Ÿè®¡ä½“æ¸©é«˜äºæˆ–ç­‰äº37åº¦çš„å­¦ç”Ÿäººæ•°
-}
-
-// ä¿å­˜é“¾è¡¨åˆ°æ–‡ä»¶
-void save(LinkedList *list)
-{
-    // TODO: å°†é“¾è¡¨çš„å†…å®¹ä¿å­˜åˆ°data.txtæ–‡ä»¶ä¸­
-}
-
-// ä»æ–‡ä»¶åŠ è½½é“¾è¡¨
-void load(LinkedList *list)
-{
-    // TODO: ä»data.txtæ–‡ä»¶ä¸­è¯»å–å†…å®¹ï¼ŒåŠ è½½åˆ°é“¾è¡¨ä¸­
-}
-
-// åˆ é™¤å­¦ç”Ÿä¿¡æ¯
+// É¾³ıÑ§ÉúĞÅÏ¢
 void dele(LinkedList *list, int id)
 {
-    // TODO: è°ƒç”¨searchå‡½æ•°æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯ï¼Œç„¶ååˆ é™¤è¯¥èŠ‚ç‚¹
+    Node *to_delete = search(list, id);
+    if (to_delete == NULL)
+    {
+        return;
+    }
+    printf("È·¶¨ÒªÉ¾³ıÑ§ºÅÎª%dµÄÑ§ÉúÂğ£¿(y/n)\n", id);
+    char confirm;
+    scanf(" %c", &confirm);
+    if (confirm != 'y' && confirm != 'Y')
+    {
+        printf("È¡ÏûÉ¾³ı¡£\n");
+        return;
+    }
+    if (list->head == to_delete)
+    {
+        list->head = to_delete->next;
+    }
+    else
+    {
+        Node *prev = list->head;
+        while (prev->next != to_delete)
+        {
+            prev = prev->next;
+        }
+        prev->next = to_delete->next;
+    }
+    free(to_delete);
+    printf("Ñ§ºÅÎª%dµÄÑ§ÉúÒÑ±»É¾³ı¡£\n", id);
 }
 
-// æ‰“å°æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
+// Í³¼ÆÌåÎÂ¸ßÓÚ37¶ÈµÄÑ§ÉúÈËÊı
+void statistics(LinkedList *list)
+{
+    Node *current = list->head;
+    int count = 0;
+    printf("ÌåÎÂ¸ßÓÚ»òµÈÓÚ37¶ÈµÄÑ§ÉúĞÅÏ¢ÈçÏÂ£º\n");
+    while (current != NULL)
+    {
+        if (current->temperature >= 37.0)
+        {
+            count++;
+            printf("Ñ§ºÅ£º%d\n", current->id);
+            printf("ĞÕÃû£º%s\n", current->name);
+            printf("ĞÔ±ğ£º%s\n", current->gender);
+            printf("ÌåÎÂ£º%.1f\n", current->temperature);
+            printf("½øÈëÍ¼Êé¹İµÄÊ±¼ä£º%02d:%02d\n", current->hour, current->minute);
+            printf("--------------------\n");
+        }
+        current = current->next;
+    }
+    printf("ÌåÎÂ¸ßÓÚ»òµÈÓÚ37¶ÈµÄÑ§ÉúÈËÊı£º%d\n", count);
+}
+
+// ±£´æÁ´±íµ½ÎÄ¼ş
+void save(LinkedList *list)
+{
+    FILE *file = fopen("data.txt", "w");
+    if (file == NULL)    return;
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        fprintf(file, "%d %s %s %.1f %d %d\n", current->id, current->name, current->gender, current->temperature, current->hour, current->minute);
+        current = current->next;
+    }
+    fclose(file);
+}
+
+// ´ÓÎÄ¼ş¼ÓÔØÁ´±í
+void load(LinkedList *list)
+{
+    FILE *file = fopen("data.txt", "r");
+    if (file == NULL)    return;
+    Node *current = list->head;
+    while (!feof(file))
+    {
+        Node *new_node = (Node *)malloc(sizeof(Node));
+        if (new_node == NULL)
+        {
+            printf("ÄÚ´æ·ÖÅäÊ§°Ü¡£\n");
+            return;
+        }
+        fscanf(file, "%d %s %s %lf %d %d\n", &(new_node->id), new_node->name, new_node->gender, &(new_node->temperature), &(new_node->hour), &(new_node->minute));
+        new_node->next = NULL;
+        if (current == NULL)
+        {
+            list->head = new_node;
+        }
+        else
+        {
+            current->next = new_node;
+        }
+        current = new_node;
+    }
+    fclose(file);
+}
+
+// ´òÓ¡È«²¿Ñ§ÉúĞÅÏ¢
 void print(LinkedList *list)
 {
-    // TODO: éå†é“¾è¡¨ï¼Œæ‰“å°æ¯ä¸ªèŠ‚ç‚¹çš„ä¿¡æ¯
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        printf("Ñ§ºÅ£º%d\n", current->id);
+        printf("ĞÕÃû£º%s\n", current->name);
+        printf("ĞÔ±ğ£º%s\n", current->gender);
+        printf("ÌåÎÂ£º%.1f\n", current->temperature);
+        printf("½øÈëÍ¼Êé¹İµÄÊ±¼ä£º%02d:%02d\n", current->hour, current->minute);
+        printf("--------------------\n");
+        current = current->next;
+    }
 }
 
-// ä¸»å‡½æ•°
+// Ä¿Â¼º¯Êı
+void menu()
+{
+    printf("+++++++++++++++++++++++++++++++\n");
+    printf("+------Í¼Êé¹İÈËÔ±¹ÜÀíÏµÍ³-----+\n");
+    printf("+--1.Ìí¼ÓÑ§ÉúĞÅÏ¢-------------+\n");
+    printf("+--2.°´ÌåÎÂ¶ÔÑ§ÉúÅÅĞò---------+\n");
+    printf("+--3.¶ÔÑ§Éú²éÕÒ---------------+\n");
+    printf("+--4.´òÓ¡È«²¿Ñ§ÉúĞÅÏ¢---------+\n");
+    printf("+--5.É¸Ñ¡ÌåÎÂ¸ßÓÚ37µÄÑ§Éú-----+\n");
+    printf("+--6.É¾³ıÖ¸¶¨Ñ§Éú-------------+\n");
+    printf("+--7.ÍË³ö³ÌĞò-----------------+\n");
+    printf("+++++++++++++++++++++++++++++++\n");
+}
+
+// Ö÷º¯Êı
 int main()
 {
     LinkedList *list = init_list();
-    // TODO: åŠ è½½æ–‡ä»¶ï¼Œè°ƒç”¨ç›®å½•ï¼Œå®ç°æ¯é¡¹åŠŸèƒ½
+    load(list);
+    while (1)
+    {
+        menu();
+        int choice;
+        printf("ÇëÊäÈëÄãµÄÑ¡Ôñ£º");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            add(list);
+            break;
+        case 2:
+            sort(list);
+            break;
+        case 3:
+            printf("ÇëÊäÈëÒª²éÕÒµÄÑ§ÉúµÄÑ§ºÅ£º");
+            int id;
+            scanf("%d", &id);
+            search(list, id);
+            break;
+        case 4:
+            print(list);
+            break;
+        case 5:
+            statistics(list);
+            break;
+        case 6:
+            printf("ÇëÊäÈëÒªÉ¾³ıµÄÑ§ÉúµÄÑ§ºÅ£º");
+            scanf("%d", &id);
+            dele(list, id);
+            break;
+        case 7:
+            save(list);
+            printf("ÍË³ö³ÌĞò¡£\n");
+            return 0;
+        default:
+            printf("ÎŞĞ§µÄÑ¡Ôñ£¬ÇëÖØĞÂÊäÈë¡£\n");
+        }
+        save(list);
+        printf("\n°´»Ø³µ¼ü¼ÌĞø...\n");
+        getchar();       
+        getchar();       
+        system("cls"); 
+    }
     return 0;
 }
