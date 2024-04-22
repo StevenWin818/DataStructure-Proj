@@ -122,10 +122,7 @@ Node *merge(Node *l1, Node *l2)
 // 归并排序函数
 Node *mergeSort(Node *head)
 {
-    if (head == NULL || head->next == NULL)
-    {
-        return head;
-    }
+    if (head == NULL || head->next == NULL)    return head;
     Node *mid = split(head);
     return merge(mergeSort(head), mergeSort(mid));
 }
@@ -162,10 +159,8 @@ Node *search(LinkedList *list, int id)
 void dele(LinkedList *list, int id)
 {
     Node *to_delete = search(list, id);
-    if (to_delete == NULL)
-    {
-        return;
-    }
+    if (to_delete == NULL)    return;
+    
     printf("确定要删除学号为%d的学生吗？(y/n)\n", id);
     char confirm;
     scanf(" %c", &confirm);
@@ -175,16 +170,12 @@ void dele(LinkedList *list, int id)
         return;
     }
     if (list->head == to_delete)
-    {
         list->head = to_delete->next;
-    }
     else
     {
         Node *prev = list->head;
         while (prev->next != to_delete)
-        {
             prev = prev->next;
-        }
         prev->next = to_delete->next;
     }
     free(to_delete);
@@ -244,14 +235,8 @@ void load(LinkedList *list)
         }
         fscanf(file, "%d %s %s %lf %d %d\n", &(new_node->id), new_node->name, new_node->gender, &(new_node->temperature), &(new_node->hour), &(new_node->minute));
         new_node->next = NULL;
-        if (current == NULL)
-        {
-            list->head = new_node;
-        }
-        else
-        {
-            current->next = new_node;
-        }
+        if (current == NULL)    list->head = new_node;
+        else    current->next = new_node;
         current = new_node;
     }
     fclose(file);
@@ -332,7 +317,7 @@ int main()
             printf("无效的选择，请重新输入。\n");
         }
         save(list);
-        printf("\n按回车键继续...\n");
+        printf("\n按回车键以继续...\n");
         getchar();       
         getchar();       
         system("cls"); 
