@@ -54,28 +54,22 @@ void add(LinkedList *list)
         if (new_node->temperature < 35 || new_node->temperature > 42)
             printf("体温输入异常，请输入35-42之间的体温。\n");
     } while (new_node->temperature < 35 || new_node->temperature > 42);
-    // printf("请输入进入图书馆的时间（时）：");
-    // scanf("%d", &(new_node->hour));
-    // if (new_node->hour < 0 || new_node->hour > 24)
-    // {
-    //     printf("时间（时）输入异常，请输入0-24之间的时间。\n");
-    //     free(new_node);
-    //     return;
-    // }
+
+
     do{
         printf("请输入进入图书馆的时间（时）：");
         scanf("%d", &(new_node->hour));
-        if (new_node->hour < 0 || new_node->hour > 24)
-            printf("时间（时）输入异常，请输入0-24之间的时间。\n");
-    } while(new_node->hour < 0 || new_node->hour > 24);
+        if (new_node->hour < 0 || new_node->hour > 23)
+            printf("时间（时）输入异常，请输入0-23之间的时间。\n");
+    } while(new_node->hour < 0 || new_node->hour > 23);
 
     do
     {
         printf("请输入进入图书馆的时间（分）：");
         scanf("%d", &(new_node->minute));
-        if (new_node->minute < 0 || new_node->minute > 60)
-            printf("时间（分）输入异常，请输入0-60之间的时间。\n");
-    } while (new_node->minute < 0 || new_node->minute > 60);
+        if (new_node->minute < 0 || new_node->minute >= 60)
+            printf("时间（分）输入异常，请输入0-59之间的时间。\n");
+    } while (new_node->minute < 0 || new_node->minute >= 60);
     new_node->next = list->head;
     list->head = new_node;
     list->size++;
