@@ -75,7 +75,8 @@ void add(LinkedList *list)
     list->size++;
 }
 
-// 分割链表为两半
+//排序操作
+// 链表分割函数
 Node *split(Node *head)
 {
     Node *slow = head;
@@ -89,8 +90,7 @@ Node *split(Node *head)
     slow->next = NULL;
     return temp;
 }
-
-// 合并两个有序链表
+// 归并排序
 Node *merge(Node *l1, Node *l2)
 {
     Node dummy;
@@ -112,7 +112,6 @@ Node *merge(Node *l1, Node *l2)
     tail->next = l1 ? l1 : l2;
     return dummy.next;
 }
-
 // 归并排序函数
 Node *mergeSort(Node *head)
 {
@@ -120,8 +119,6 @@ Node *mergeSort(Node *head)
     Node *mid = split(head);
     return merge(mergeSort(head), mergeSort(mid));
 }
-
-// 对链表进行归并排序
 void sort(LinkedList *list)
 {
     list->head = mergeSort(list->head);
