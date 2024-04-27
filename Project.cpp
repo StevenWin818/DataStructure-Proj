@@ -262,10 +262,7 @@ void dele(LinkedList *list, const char *key)
         list->size--;
         printf("学生信息已删除。\n");
     }
-    else
-    {
-        printf("取消删除操作。\n");
-    }
+    else    printf("取消删除操作。\n");
 }
 
 // 主函数
