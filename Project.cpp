@@ -24,7 +24,7 @@ LinkedList *init_list()
     LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
     if (list == NULL)
     {
-        printf("内存分配失败，无法初始化链表。\n");
+        printf("内存分配失败，无法初始化链表\n");
         return NULL;
     }
     list->head = NULL;
@@ -38,7 +38,7 @@ void add(LinkedList *list)
     Node *new_node = (Node *)malloc(sizeof(Node));
     if (new_node == NULL)
     {
-        printf("内存分配失败。\n");
+        printf("内存分配失败\n");
         return;
     }
     printf("请输入学号：");
@@ -52,7 +52,7 @@ void add(LinkedList *list)
         printf("请输入体温：");
         scanf("%lf", &(new_node->temperature));
         if (new_node->temperature < 35 || new_node->temperature > 42)
-            printf("体温输入异常，请输入35-42之间的体温。\n");
+            printf("体温输入异常，请输入35-42之间的体温\n");
     } while (new_node->temperature < 35 || new_node->temperature > 42);
 
 
@@ -60,7 +60,7 @@ void add(LinkedList *list)
         printf("请输入进入图书馆的时间（时）：");
         scanf("%d", &(new_node->hour));
         if (new_node->hour < 0 || new_node->hour > 23)
-            printf("时间（时）输入异常，请输入0-23之间的时间。\n");
+            printf("时间（时）输入异常，请输入0-23之间的时间\n");
     } while(new_node->hour < 0 || new_node->hour > 23);
 
     do
@@ -68,11 +68,27 @@ void add(LinkedList *list)
         printf("请输入进入图书馆的时间（分）：");
         scanf("%d", &(new_node->minute));
         if (new_node->minute < 0 || new_node->minute >= 60)
-            printf("时间（分）输入异常，请输入0-59之间的时间。\n");
+            printf("时间（分）输入异常，请输入0-59之间的时间\n");
     } while (new_node->minute < 0 || new_node->minute >= 60);
     new_node->next = list->head;
     list->head = new_node;
     list->size++;
+}
+
+// 打印全部学生信息
+void print(LinkedList *list)
+{
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        printf("学号：%d\n", current->id);
+        printf("姓名：%s\n", current->name);
+        printf("性别：%s\n", current->gender);
+        printf("体温：%.1f\n", current->temperature);
+        printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
+        printf("--------------------\n");
+        current = current->next;
+    }
 }
 
 //排序操作
@@ -122,6 +138,8 @@ Node *mergeSort(Node *head)
 void sort(LinkedList *list)
 {
     list->head = mergeSort(list->head);
+    printf("已排序,结果如下\n");
+    print(list);
 }
 
 
@@ -173,7 +191,7 @@ void load(LinkedList *list)
         Node *new_node = (Node *)malloc(sizeof(Node));
         if (new_node == NULL)
         {
-            printf("内存分配失败。\n");
+            printf("内存分配失败\n");
             return;
         }
         fscanf(file, "%d %s %s %lf %d %d\n", &(new_node->id), new_node->name, new_node->gender, &(new_node->temperature), &(new_node->hour), &(new_node->minute));
@@ -185,21 +203,6 @@ void load(LinkedList *list)
     fclose(file);
 }
 
-// 打印全部学生信息
-void print(LinkedList *list)
-{
-    Node *current = list->head;
-    while (current != NULL)
-    {
-        printf("学号：%d\n", current->id);
-        printf("姓名：%s\n", current->name);
-        printf("性别：%s\n", current->gender);
-        printf("体温：%.1f\n", current->temperature);
-        printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
-        printf("--------------------\n");
-        current = current->next;
-    }
-}
 
 // 目录函数
 void menu()
@@ -232,7 +235,7 @@ Node *search(LinkedList *list, const char *key)
         }
         current = current->next;
     }
-    printf("未找到学号或姓名为 %s 的学生。\n", key);
+    printf("未找到学号或姓名为 %s 的学生\n", key);
     return NULL;
 }
 
@@ -260,9 +263,10 @@ void dele(LinkedList *list, const char *key)
         else
             prev->next = current->next;
         list->size--;
-        printf("学生信息已删除。\n");
+        printf("学生信息已删除\n");
     }
-    else    printf("取消删除操作。\n");
+    else
+        printf("取消删除操作\n");
 }
 
 // 主函数
@@ -306,10 +310,10 @@ int main()
             break;
         case 7:
             save(list);
-            printf("退出程序。\n");
+            printf("退出程序\n");
             return 0;
         default:
-            printf("无效的选择，请重新输入。\n");
+            printf("无效的选择，请重新输入\n");
         }
         save(list);
         printf("\n按回车键以继续...\n");
