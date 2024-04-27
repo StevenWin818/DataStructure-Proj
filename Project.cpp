@@ -124,54 +124,6 @@ void sort(LinkedList *list)
     list->head = mergeSort(list->head);
 }
 
-// 查找学生
-Node *search(LinkedList *list, int id)
-{
-    Node *current = list->head;
-    while (current != NULL)
-    {
-        if (current->id == id)
-        {
-            printf("学号：%d\n", current->id);
-            printf("姓名：%s\n", current->name);
-            printf("性别：%s\n", current->gender);
-            printf("体温：%.1f\n", current->temperature);
-            printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
-            printf("--------------------\n");
-            return current;
-        }
-        current = current->next;
-    }
-    printf("未找到学号为%d的学生。\n", id);
-    return NULL;
-}
-
-// 删除学生信息
-void dele(LinkedList *list, int id)
-{
-    Node *to_delete = search(list, id);
-    if (to_delete == NULL)    return;
-    
-    printf("确定要删除学号为%d的学生吗？(y/n)\n", id);
-    char confirm;
-    scanf(" %c", &confirm);
-    if (confirm != 'y' && confirm != 'Y')
-    {
-        printf("取消删除。\n");
-        return;
-    }
-    if (list->head == to_delete)
-        list->head = to_delete->next;
-    else
-    {
-        Node *prev = list->head;
-        while (prev->next != to_delete)
-            prev = prev->next;
-        prev->next = to_delete->next;
-    }
-    free(to_delete);
-    printf("学号为%d的学生已被删除。\n", id);
-}
 
 // 统计体温高于37度的学生人数
 void statistics(LinkedList *list)
@@ -263,6 +215,58 @@ void menu()
     printf("+--7.退出程序-----------------+\n");
     printf("+++++++++++++++++++++++++++++++\n");
 }
+Node *search(LinkedList *list, const char *key)
+{
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        if (strcmp(current->name, key) == 0 || current->id == atoi(key))
+        {
+            printf("找到学生信息如下：\n");
+            printf("学号：%d\n", current->id);
+            printf("姓名：%s\n", current->name);
+            printf("性别：%s\n", current->gender);
+            printf("体温：%.1f\n", current->temperature);
+            printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
+            return current;
+        }
+        current = current->next;
+    }
+    printf("未找到学号或姓名为 %s 的学生。\n", key);
+    return NULL;
+}
+
+// 添加delete函数
+void dele(LinkedList *list, const char *key)
+{
+    Node *student_to_delete = search(list, key);
+    if (student_to_delete == NULL)
+        return;
+    // 确认删除
+    printf("是否要删除该学生信息？(y/n): ");
+    char confirm[2];
+    scanf("%1s", confirm);
+    if (confirm[0] == 'y' || confirm[0] == 'Y')
+    {
+        Node *current = list->head;
+        Node *prev = NULL;
+        while (current != student_to_delete)
+        {
+            prev = current;
+            current = current->next;
+        }
+        if (prev == NULL)
+            list->head = current->next;
+        else
+            prev->next = current->next;
+        list->size--;
+        printf("学生信息已删除。\n");
+    }
+    else
+    {
+        printf("取消删除操作。\n");
+    }
+}
 
 // 主函数
 int main()
@@ -284,11 +288,13 @@ int main()
             sort(list);
             break;
         case 3:
-            printf("请输入要查找的学生的学号：");
-            int id;
-            scanf("%d", &id);
-            search(list, id);
+           {
+            printf("请输入要查找的学生的学号或姓名：");
+            char key[20];
+            scanf("%s", key);
+            search(list, key);
             break;
+            }
         case 4:
             print(list);
             break;
@@ -296,9 +302,10 @@ int main()
             statistics(list);
             break;
         case 6:
-            printf("请输入要删除的学生的学号：");
-            scanf("%d", &id);
-            dele(list, id);
+            printf("请输入要删除的学生的学号或姓名：");
+            char key[20];
+            scanf("%s", key);
+            dele(list, key);
             break;
         case 7:
             save(list);
