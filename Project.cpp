@@ -1,30 +1,30 @@
 #include <bits/stdc++.h>
-// 定义链表节点
+// ??????
 typedef struct Node
 {
-    int id;             // 学号
-    char name[50];      // 姓名
-    char gender[10];    // 性别
-    double temperature; // 体温
-    int hour;           // 进入图书馆的时间（时）
-    int minute;         // 进入图书馆的时间（分）
-    struct Node *next;  // 指向下一个节点的指针
+    int id;             // ??
+    char name[50];      // ??
+    char gender[10];    // ??
+    double temperature; // ??
+    int hour;           // ???????????
+    int minute;         // ???????????
+    struct Node *next;  // ??????????
 } Node;
 
-// 定义链表
+// ????
 typedef struct LinkedList
 {
-    Node *head; // 链表的头节点
-    int size;   // 链表的大小（节点数）
+    Node *head; // ??????
+    int size;   // ??????????
 } LinkedList;
 
-// 初始化链表
+// ?????
 LinkedList *init_list()
 {
     LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
     if (list == NULL)
     {
-        printf("内存分配失败，无法初始化链表\n");
+        printf("??????????????\n");
         return NULL;
     }
     list->head = NULL;
@@ -32,67 +32,67 @@ LinkedList *init_list()
     return list;
 }
 
-// 添加学生信息
+// ??????
 void add(LinkedList *list)
 {
     Node *new_node = (Node *)malloc(sizeof(Node));
     if (new_node == NULL)
     {
-        printf("内存分配失败\n");
+        printf("??????\n");
         return;
     }
-    printf("请输入学号：");
+    printf("??????");
     scanf("%d", &(new_node->id));
-    printf("请输入姓名：");
+    printf("??????");
     scanf("%s", new_node->name);
-    printf("请输入性别：");
+    printf("??????");
     scanf("%s", new_node->gender);
     do
     {
-        printf("请输入体温：");
+        printf("??????");
         scanf("%lf", &(new_node->temperature));
         if (new_node->temperature < 35 || new_node->temperature > 42)
-            printf("体温输入异常，请输入35-42之间的体温\n");
+            printf("??????????35-42?????\n");
     } while (new_node->temperature < 35 || new_node->temperature > 42);
 
 
     do{
-        printf("请输入进入图书馆的时间（时）：");
+        printf("???????????????");
         scanf("%d", &(new_node->hour));
         if (new_node->hour < 0 || new_node->hour > 23)
-            printf("时间（时）输入异常，请输入0-23之间的时间\n");
+            printf("?????????????0-23?????\n");
     } while(new_node->hour < 0 || new_node->hour > 23);
 
     do
     {
-        printf("请输入进入图书馆的时间（分）：");
+        printf("???????????????");
         scanf("%d", &(new_node->minute));
         if (new_node->minute < 0 || new_node->minute >= 60)
-            printf("时间（分）输入异常，请输入0-59之间的时间\n");
+            printf("?????????????0-59?????\n");
     } while (new_node->minute < 0 || new_node->minute >= 60);
     new_node->next = list->head;
     list->head = new_node;
     list->size++;
 }
 
-// 打印全部学生信息
+// ????????
 void print(LinkedList *list)
 {
     Node *current = list->head;
     while (current != NULL)
     {
-        printf("学号：%d\n", current->id);
-        printf("姓名：%s\n", current->name);
-        printf("性别：%s\n", current->gender);
-        printf("体温：%.1f\n", current->temperature);
-        printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
+        printf("???%d\n", current->id);
+        printf("???%s\n", current->name);
+        printf("???%s\n", current->gender);
+        printf("???%.1f\n", current->temperature);
+        printf("?????????%02d:%02d\n", current->hour, current->minute);
         printf("--------------------\n");
         current = current->next;
     }
 }
 
-//排序操作
-// 链表分割函数
+//????
+// ??????
 Node *split(Node *head)
 {
     Node *slow = head;
@@ -106,7 +106,7 @@ Node *split(Node *head)
     slow->next = NULL;
     return temp;
 }
-// 归并排序
+// ????
 Node *merge(Node *l1, Node *l2)
 {
     Node dummy;
@@ -128,7 +128,7 @@ Node *merge(Node *l1, Node *l2)
     tail->next = l1 ? l1 : l2;
     return dummy.next;
 }
-// 归并排序函数
+// ??????
 Node *mergeSort(Node *head)
 {
     if (head == NULL || head->next == NULL)    return head;
@@ -138,35 +138,35 @@ Node *mergeSort(Node *head)
 void sort(LinkedList *list)
 {
     list->head = mergeSort(list->head);
-    printf("已排序,结果如下\n");
+    printf("???,????\n");
     print(list);
 }
 
 
-// 统计体温高于37度的学生人数
+// ??????37??????
 void statistics(LinkedList *list)
 {
     Node *current = list->head;
     int count = 0;
-    printf("体温高于或等于37度的学生信息如下：\n");
+    printf("???????37?????????\n");
     while (current != NULL)
     {
         if (current->temperature >= 37.0)
         {
             count++;
-            printf("学号：%d\n", current->id);
-            printf("姓名：%s\n", current->name);
-            printf("性别：%s\n", current->gender);
-            printf("体温：%.1f\n", current->temperature);
-            printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
+            printf("???%d\n", current->id);
+            printf("???%s\n", current->name);
+            printf("???%s\n", current->gender);
+            printf("???%.1f\n", current->temperature);
+            printf("?????????%02d:%02d\n", current->hour, current->minute);
             printf("--------------------\n");
         }
         current = current->next;
     }
-    printf("体温高于或等于37度的学生人数：%d\n", count);
+    printf("???????37???????%d\n", count);
 }
 
-// 保存链表到文件
+// ???????
 void save(LinkedList *list)
 {
     FILE *file = fopen("data.txt", "w");
@@ -180,7 +180,7 @@ void save(LinkedList *list)
     fclose(file);
 }
 
-// 从文件加载链表
+// ???????
 void load(LinkedList *list)
 {
     FILE *file = fopen("data.txt", "r");
@@ -191,7 +191,7 @@ void load(LinkedList *list)
         Node *new_node = (Node *)malloc(sizeof(Node));
         if (new_node == NULL)
         {
-            printf("内存分配失败\n");
+            printf("??????\n");
             return;
         }
         fscanf(file, "%d %s %s %lf %d %d\n", &(new_node->id), new_node->name, new_node->gender, &(new_node->temperature), &(new_node->hour), &(new_node->minute));
@@ -204,18 +204,18 @@ void load(LinkedList *list)
 }
 
 
-// 目录函数
+// ????
 void menu()
 {
     printf("+++++++++++++++++++++++++++++++\n");
-    printf("+------图书馆人员管理系统-----+\n");
-    printf("+--1.添加学生信息-------------+\n");
-    printf("+--2.按体温对学生排序---------+\n");
-    printf("+--3.对学生查找---------------+\n");
-    printf("+--4.打印全部学生信息---------+\n");
-    printf("+--5.筛选体温高于37的学生-----+\n");
-    printf("+--6.删除指定学生-------------+\n");
-    printf("+--7.退出程序-----------------+\n");
+    printf("+------?????????-----+\n");
+    printf("+--1.??????-------------+\n");
+    printf("+--2.????????---------+\n");
+    printf("+--3.?????---------------+\n");
+    printf("+--4.????????---------+\n");
+    printf("+--5.??????37???-----+\n");
+    printf("+--6.??????-------------+\n");
+    printf("+--7.????-----------------+\n");
     printf("+++++++++++++++++++++++++++++++\n");
 }
 Node *search(LinkedList *list, const char *key)
@@ -225,28 +225,28 @@ Node *search(LinkedList *list, const char *key)
     {
         if (strcmp(current->name, key) == 0 || current->id == atoi(key))
         {
-            printf("找到学生信息如下：\n");
-            printf("学号：%d\n", current->id);
-            printf("姓名：%s\n", current->name);
-            printf("性别：%s\n", current->gender);
-            printf("体温：%.1f\n", current->temperature);
-            printf("进入图书馆的时间：%02d:%02d\n", current->hour, current->minute);
+            printf("?????????\n");
+            printf("???%d\n", current->id);
+            printf("???%s\n", current->name);
+            printf("???%s\n", current->gender);
+            printf("???%.1f\n", current->temperature);
+            printf("?????????%02d:%02d\n", current->hour, current->minute);
             return current;
         }
         current = current->next;
     }
-    printf("未找到学号或姓名为 %s 的学生\n", key);
+    printf("????????? %s ???\n", key);
     return NULL;
 }
 
-// 添加delete函数
+// ??delete??
 void dele(LinkedList *list, const char *key)
 {
     Node *student_to_delete = search(list, key);
     if (student_to_delete == NULL)
         return;
-    // 确认删除
-    printf("是否要删除该学生信息？(y/n): ");
+    // ????
+    printf("???????????(y/n): ");
     char confirm[2];
     scanf("%1s", confirm);
     if (confirm[0] == 'y' || confirm[0] == 'Y')
@@ -263,13 +263,13 @@ void dele(LinkedList *list, const char *key)
         else
             prev->next = current->next;
         list->size--;
-        printf("学生信息已删除\n");
+        printf("???????\n");
     }
     else
-        printf("取消删除操作\n");
+        printf("??????\n");
 }
 
-// 主函数
+// ???
 int main()
 {
     LinkedList *list = init_list();
@@ -278,7 +278,7 @@ int main()
     {
         menu();
         int choice;
-        printf("请输入你的选择：");
+        printf("????????");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -290,7 +290,7 @@ int main()
             break;
         case 3:
            {
-            printf("请输入要查找的学生的学号或姓名：");
+            printf("????????????????");
             char key[20];
             scanf("%s", key);
             search(list, key);
@@ -303,20 +303,20 @@ int main()
             statistics(list);
             break;
         case 6:
-            printf("请输入要删除的学生的学号或姓名：");
+            printf("????????????????");
             char key[20];
             scanf("%s", key);
             dele(list, key);
             break;
         case 7:
             save(list);
-            printf("退出程序\n");
+            printf("????\n");
             return 0;
         default:
-            printf("无效的选择，请重新输入\n");
+            printf("???????????\n");
         }
         save(list);
-        printf("\n按回车键以继续...\n");
+        printf("\n???????...\n");
         getchar();       
         getchar();       
         system("cls"); 
